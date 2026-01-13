@@ -1,0 +1,37 @@
+[project]
+name = "project1-mishra-alla"
+version = "0.1.0"
+description = "Игра-лабиринт"
+authors = [
+    {name = "mishra-alla", email = "allasr22@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+project = "labyrinth_game.main:main"
+
+#[tool.poetry.scripts]
+#project = "labyrinth_game.main:main" 
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = []
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.14.11,<0.15.0)"
+]
+
+[tool.poetry]
+packages = [{include = "labyrinth_game"}]
