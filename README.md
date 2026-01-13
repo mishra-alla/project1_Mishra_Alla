@@ -30,7 +30,7 @@ make project
 
 ## Структура проекта
 ```bash
-project1_Ovsyannikov_Sergey_M25-555/
+project1_Mishra_Alla_nod/
 ├── labyrinth_game/        # исходный код игры
 │   ├── __init__.py
 │   ├── main.py            # главный исполняемый файл
