@@ -8,3 +8,6 @@ __pycache__/
 env/
 venv/
 *.egg-info/
+*_copy.py
+* copy.py
+*.bak

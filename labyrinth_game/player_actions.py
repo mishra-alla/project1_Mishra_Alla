@@ -26,10 +26,29 @@ def move_player(game_state, direction):
     
     if direction in room['exits']:
         new_room = room['exits'][direction]
+        # Проверка для TREASURE_ROOM
+        if new_room == 'treasure_room':
+            room_data = constants.ROOMS['treasure_room']
+            #if 'rusty_key' not in game_state['player_inventory']:
+            #    print("Дверь заперта. Нужен ключ, чтобы пройти дальше.")
+            #    return
+            #else:
+            #    print("Ура! У вас есть ключ, чтобы открыть путь в комнату сокровищ.")
+            if room_data.get('locked', False):
+                print("Дверь заперта. Нужно решить загадку или иметь ключ.")
+                print("Введите 'solve' чтобы попробовать открыть дверь.")
+                return       
+
+        # переход в другую комнату
         game_state['current_room'] = new_room
         game_state['steps_taken'] += 1
         
         print(f"\nВы перешли {direction} в {new_room}.")
+        
+        # Случайное событие
+        utils.random_event(game_state)
+        
+        # Показываем комнату
         utils.describe_current_room(game_state)
     else:
         print(f"Нельзя пойти в направлении {direction}.")
@@ -53,21 +72,24 @@ def take_item(game_state, item_name):
         print(f"Предмет '{item_name}' не найден.")
 
 def use_item(game_state, item_name):
-    """Использовать предмет из инвентаря"""
-    print("\nЭта функция будет реализована на следующем этапе.")
-
-def use_item(game_state, item_name):
-    """Использовать предмет"""
     inventory = game_state['player_inventory']
     current_room = game_state['current_room']
-    
-    # ПОЛУЧАЕМ ДАННЫЕ КОМНАТЫ
     room = constants.ROOMS[current_room] 
 
     if item_name not in inventory:
         print(f"У вас нет предмета '{item_name}'.")
         return
-    
+
+    # ОТКРЫТИЕ СУНДУКА В TREASURE_ROOM
+    if item_name == "rusty_key" and current_room == "treasure_room":
+        if "treasure_chest" in room['items']:
+            print("\nВы открываете сундук ключом...")
+            print("🎉 Поздравляем! Вы нашли сокровища! 🎉")
+            game_state['game_over'] = True
+        else:
+            print("Сундук уже открыт.")
+        return
+
     # 1. ФАКЕЛ в темной комнате
     if item_name == "torch" and current_room == "dark_room" and room.get('dark', False):
         print("\nВы зажигаете факел. Комната освещается!")
@@ -136,8 +158,8 @@ def use_item(game_state, item_name):
     elif item_name == "rusty_key":
         # Проверяем если мы в комнате с сокровищами
         if current_room == "treasure_room":
-            print("\nВы используете ржавый ключ на сундуке...")
-            print("Ключ подходит! Сундук открывается!")
+            print("\nВы используете ржавый ключ...")
+            print("Ключ подходит! Сундук открываются!")
             print("🎉 ПОЗДРАВЛЯЕМ! ВЫ НАШЛИ СОКРОВИЩА! 🎉")
             game_state['game_over'] = True
         else:
