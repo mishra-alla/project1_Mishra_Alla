@@ -34,38 +34,35 @@ def random_event(game_state):
     """Случайное событие при перемещении"""
     # 30% шанс события (rand_num <= 2 из 10)
     rand_num = pseudo_random(game_state["steps_taken"], constants.EVENT_PROB)
-    
+
     # Событие происходит если число <= порога
     if rand_num <= constants.RANDOM_THRESHOLD:
         # Выбираем событие
-        event_type = pseudo_random(game_state["steps_taken"] + 1, constants.EVENT_TYPES)
+        event_type = pseudo_random(game_state["steps_taken"] + 1,
+                                    constants.EVENT_TYPES)
         current_room = game_state["current_room"]
         room = constants.ROOMS[current_room]
         inventory = game_state["player_inventory"]
-
-        #print("\nСлучайное событие!")       
+        #print("\nСлучайное событие!")
         if event_type == 0:
             print("Вы нашли на полу монетку!")
             if "coin" not in room["items"]:
                 room["items"].append("coin")
-        
         elif event_type == 1:
             print("Вы слышите странный шорох из темного угла...")
             if "sword" in inventory:
                 print("Вы хватаете меч, и звук мгновенно прекращается!")
-        
         elif event_type == 2:
             if current_room == "trap_room" and "torch" not in inventory:
                 print("Опасность! Кажется, вы активировали ловушку!")
                 trigger_trap(game_state)
-        
         elif event_type == 3:
             print("Вам сегодня везёт!")
             if inventory:
                 print("Ваши предметы кажутся особенно ценными.")
-        
         elif event_type == 4:
-            smells = ["запах плесени", "аромат старых книг", "запах сырости", "сладкий аромат"]
+            smells = ["запах плесени", "аромат старых книг",
+                    "запах сырости", "сладкий аромат"]
             smell = smells[pseudo_random(game_state["steps_taken"], len(smells))]
             print(f"Вы чувствуете {smell}...")
         else:
@@ -127,11 +124,15 @@ def solve_puzzle(game_state):
             correct_answers = ["9"]
             if "9" in constants.ALTERNATIVE_ANSWERS:
                 correct_answers.extend(constants.ALTERNATIVE_ANSWERS["9"])
-                print("Дверь открывается!")
+                #print("Дверь открывается!")
+                #constants.ROOMS["treasure_room"]["locked"] = False
+            if answer in correct_answers:
+                print("Дверь открывается!")  #Только при правильном ответе
                 constants.ROOMS["treasure_room"]["locked"] = False
+                return
             else:
-                print("Неверный код.")
-            return
+                print("Неверный код. Дверь остается закрытой.")
+                return
 
     if not room["puzzle"]:
         print("Загадок здесь нет.")
