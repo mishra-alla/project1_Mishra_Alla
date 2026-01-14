@@ -1,6 +1,4 @@
 from labyrinth_game import constants
-
-# from labyrinth_game.constants import ROOMS
 import labyrinth_game.utils as utils
 
 

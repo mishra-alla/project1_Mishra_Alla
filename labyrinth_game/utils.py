@@ -1,4 +1,3 @@
-# from labyrinth_game.constants import ROOMS
 from labyrinth_game import constants
 import math
 
@@ -183,7 +182,7 @@ def attempt_open_treasure(game_state):
 
     if answer == "да":
         code = input("Введите код: ").strip()
-        if code == "10":  # Код из загадки treasure_room
+        if code == constants.TREASURE_CODE:  # Код из загадки treasure_room
             print("Код верный! Сундук открывается!")
             print("В сундуке сокровище! Вы победили!")
             game_state["game_over"] = True

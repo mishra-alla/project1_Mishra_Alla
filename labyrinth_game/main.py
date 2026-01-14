@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-# Исправленные импорты
-# from labyrinth_game.constants import ROOMS
 from labyrinth_game import player_actions
 from labyrinth_game import utils
 
