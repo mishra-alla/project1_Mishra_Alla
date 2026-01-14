@@ -1,5 +1,5 @@
 [project]
-name = "project1-mishra-alla"
+name = "project1_Mishra_Alla_nod"
 version = "0.1.0"
 description = "Игра-лабиринт"
 authors = [
@@ -28,10 +28,5 @@ exclude = ["venv", ".venv", "dist", "__pycache__"]
 select = ["E", "F", "W"]
 ignore = []
 
-[dependency-groups]
-dev = [
-    "ruff (>=0.14.11,<0.15.0)"
-]
-
-[tool.poetry]
-packages = [{include = "labyrinth_game"}]
+[tool.poetry.group.dev.dependencies]
+ruff = ">=0.14.11,<0.15.0"
