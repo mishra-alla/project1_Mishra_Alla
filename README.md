@@ -44,11 +44,13 @@ project1_Mishra_Alla_nod/
 └── README.md
 ```
 
-
 ## Зависимости
 - `Python >= 3.12`
 - `Poetry`   # для управления зависимостями
 - `Ruff`     # для проверки кода
 
+## Демонстрация игры
+[![asciicast](https://asciinema.org/a/AvqUyCYiTpdX6o8d.svg)](https://asciinema.org/a/AvqUyCYiTpdX6o8d)
+
 ## Автор
-mishra-alla Email: [allasr22@gmail.com]
+mishra-alla email: [allasr22@gmail.com]

@@ -11,3 +11,4 @@ venv/
 *_copy.py
 * copy.py
 *.bak
+.ruff_cache/
