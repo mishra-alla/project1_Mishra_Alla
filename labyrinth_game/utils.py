@@ -5,7 +5,7 @@ import math
 
 def pseudo_random(seed, modulo):
     """Псевдослучайный генератор по sin())"""
-    x = math.sin(seed * 12.9898) * 43758.5453
+    x = math.sin(seed * constants.SIN_MULTIPLIER) * constants.RANDOM_MULTIPLI
     fractional = x - math.floor(x)
     return int(fractional * modulo)
 
@@ -22,8 +22,8 @@ def trigger_trap(game_state):
         print(f"Вы потеряли предмет: {lost_item}!")
     else:
         # Игрок получает урон
-        chance = pseudo_random(game_state["steps_taken"], 10)
-        if chance < 3:
+        chance = pseudo_random(game_state["steps_taken"], constants.EVENT_PROB)
+        if chance < constants.TRAP_THRESHOLD:
             print("Вы попали в смертельную ловушку! Игра окончена!")
             game_state["game_over"] = True
         else:
@@ -35,10 +35,11 @@ def random_event(game_state):
     # Проверяем произойдет ли событие - берем шанс в 10%
     # if pseudo_random(game_state['steps_taken'], 10) != 0:
     # Увеличили шанс до 30% для тестирования
-    if pseudo_random(game_state["steps_taken"], 10) > 2:
+    if pseudo_random(game_state["steps_taken"], constants.EVENT_PROB) >\
+                                                 constants.RANDOM_THRESHOLD:
         return
     # Выбираем событие
-    event_type = pseudo_random(game_state["steps_taken"] + 1, 5)
+    event_type = pseudo_random(game_state["steps_taken"] + 1, constants.EVENT_TYPES)
     current_room = game_state["current_room"]
     room = constants.ROOMS[current_room]
     inventory = game_state["player_inventory"]
